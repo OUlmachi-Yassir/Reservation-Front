@@ -1,0 +1,110 @@
+body {
+    background-color: #080710;
+  }
+  
+  .register-page {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .background-shapes {
+    position: absolute;
+    width: 400px;
+    height: 500px;
+  }
+  
+  .shape-one, .shape-two {
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  .shape-one {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to right, #1845ad, #23a2f6);
+    top: -80px;
+    left: -80px;
+  }
+  
+  .shape-two {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to right, #ff512f, #f09819);
+    bottom: -80px;
+    right: -30px;
+  }
+  
+  .register-form {
+    position: relative;
+    width: 400px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    color: white;
+  }
+  
+  .register-form h2 {
+    text-align: center;
+    font-size: 2rem;
+  }
+  
+  .form-group {
+    margin-top: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+  
+  .input-field {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .input-field::placeholder {
+    color: #e5e5e5;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    border: 2px solid #23a2f6;
+  }
+  
+  .submit-button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px 0;
+    background-color: white;
+    color: #080710;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .submit-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .message {
+    margin-top: 20px;
+    text-align: center;
+    color: #4caf50;
+  }
+  

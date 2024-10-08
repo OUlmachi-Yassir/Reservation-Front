@@ -1,0 +1,31 @@
+.reservations-page {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .reservations-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+  }
+  
+  .reservation-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  
+  .reservation-card h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .reservation-card p {
+    margin: 8px 0;
+    color: #666;
+  }
+  
