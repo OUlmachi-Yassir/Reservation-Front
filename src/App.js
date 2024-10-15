@@ -12,6 +12,7 @@ import './SeanceCard.css';
 import SeancePage from './pages/SeancePage';
 import MyReservations from './pages/Reservation';
 import Footer from './components/footer';
+import DashboardAdmin from './pages/DashbordAdmin';
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
           <Route path="/seance" element={<SeanceList />} />
           <Route path="/seances/:filmId" element={<SeancePage />} />
           <Route path="/Reservation" element={<MyReservations />} />
+          <Route path="/dashboardAdmin" element={<DashboardAdmin />} />
+
           
           <Route path="*" element={<NotFound />} />
         </Routes>

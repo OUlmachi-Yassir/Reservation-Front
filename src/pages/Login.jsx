@@ -26,9 +26,15 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/api/auth/login', formData);
-      localStorage.setItem('token', response.data.token);
+      const {token,role} = response.data;
+      localStorage.setItem('token', token);
+      if (role === 'admin') {
+        navigate('/dashboardAdmin');  
+      } else {
+        navigate('/');  
+      }
       setMessage('Login successful!');
-      navigate('/');  
+      
     } catch (error) {
       setMessage(error.response?.data?.message || 'Error logging in.');
     }

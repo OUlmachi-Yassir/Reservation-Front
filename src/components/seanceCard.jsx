@@ -102,7 +102,7 @@ const SeanceCard = ({ seance }) => {
             <button className="close-button1" onClick={handleClosePopup}>X</button>
             <h3>Available Seats</h3>
             <div className="seats-container">
-  {room?.seats.map((seat) => (
+  {seance?.seats.map((seat) => (
     <div key={seat._id} className="customCheckBoxHolder">
       <input
         type="checkbox"
