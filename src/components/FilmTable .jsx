@@ -20,11 +20,19 @@ const FilmTable = () => {
     loadFilms();
   };
 
+
+  const handleEditClose = () => {
+    setEditingFilm(null);
+  };
+
+  const handleUpdate = () => {
+    loadFilms();
+  };
+
   return (
     <div>
       <h2>Films</h2>
 
-      {/* Inline CSS */}
       <style>
         {`
           table {
@@ -121,7 +129,7 @@ const FilmTable = () => {
       </table>
 
       {editingFilm && (
-        <EditFilmForm film={editingFilm} onClose={() => setEditingFilm(null)} />
+        <EditFilmForm film={editingFilm} onClose={handleEditClose}  onUpdate={handleUpdate}  />
       )}
     </div>
   );

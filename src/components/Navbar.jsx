@@ -1,9 +1,23 @@
 import React from 'react';
+import { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import { getFilmsByTitre } from '../api/api.js';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+
+  const [searchFilm, setSearchFilm] = useState();
+
+  const handleClick =async () =>{
+    const film = await getFilmsByTitre(searchFilm);
+    if(film){
+      navigate(`/seances/${film._id}`);
+    }else{
+      console.log("film doesnt exist")
+    }
+  
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -47,11 +61,18 @@ const Navbar = () => {
               </Link>
             </li>
             )}
-            <li className="nav-item">
-              <Link className="nav-link" to="#">
-                <i className="fa fa-search"></i>
-              </Link>
+           <li className="nav-item d-flex">
+              <input
+                type="text"
+                value={searchFilm}
+                onChange={(e) => setSearchFilm(e.target.value)}
+                placeholder="Search Film..."
+                style={{ marginRight: '10px' }}
+              />
+              <button onClick={handleClick} className="btn btn-primary">Search</button>
             </li>
+
+            
           </ul>
 
           <ul className="navbar-nav ml-auto">

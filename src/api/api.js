@@ -21,7 +21,15 @@ export const getFilms = async () => {
       throw error;
     }
   };
-  
+
+
+  export const getFilmsByTitre = async ( titre) => {
+    const films = await getFilms(); 
+    const film = films.find((film) =>
+      film.title.toLowerCase().includes(titre.toLowerCase())
+    );
+    return film;
+  }
 
 
 

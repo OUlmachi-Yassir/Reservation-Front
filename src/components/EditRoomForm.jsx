@@ -10,8 +10,8 @@ const EditRoomForm = ({ room, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateRoom(room._id, formData); // Ensure this function works correctly
-    onClose(); // Close the form after saving
+    await updateRoom(room._id, formData); 
+    onClose(); 
   };
 
   return (

@@ -56,6 +56,7 @@ const SeancePage = () => {
               <p>No seances available for this film.</p>
             )}
           </div>
+          <video controls width="400" src={film.video}/>
         </div>
       ) : (
         <p>Loading film details...</p>
