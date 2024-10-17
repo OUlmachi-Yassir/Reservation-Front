@@ -25,20 +25,37 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', formData);
-      const {token,role} = response.data;
-      localStorage.setItem('token', token);
-      if (role === 'admin') {
-        navigate('/dashboardAdmin');  
-      } else {
-        navigate('/');  
+      const response = await axios.post(
+        'http://localhost:3000/api/auth/login', 
+        formData
+      );
+  
+      console.log('Réponse de l\'API :', response.data); 
+  
+      const { token, role } = response.data;
+  
+      if (!token || !role) {
+        throw new Error('Token ou rôle manquant dans la réponse');
       }
+  
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', role);
+  
+      console.log('Rôle stocké dans localStorage :', role); 
+  
+      if (role === 'admin') {
+        navigate('/dashboardAdmin');
+      } else {
+        navigate('/');
+      }
+  
       setMessage('Login successful!');
-      
     } catch (error) {
+      console.error('Erreur lors de la connexion :', error);
       setMessage(error.response?.data?.message || 'Error logging in.');
     }
   };
+  
 
   return (
     <div className="login-page">

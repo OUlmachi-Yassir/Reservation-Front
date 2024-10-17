@@ -1,27 +1,38 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getFilmsByTitre } from '../api/api.js';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-
-  const [searchFilm, setSearchFilm] = useState();
-
-  const handleClick =async () =>{
-    const film = await getFilmsByTitre(searchFilm);
-    if(film){
-      navigate(`/seances/${film._id}`);
-    }else{
-      console.log("film doesnt exist")
-    }
   
-  }
+  const [searchFilm, setSearchFilm] = useState('');
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem('role');
+    console.log( localStorage.getItem('role')); 
+  
+    if (storedRole) {
+      setRole(storedRole);
+    } else {
+      console.log('Aucun rôle trouvé');
+    }
+  }, []);
+
+  const handleClick = async () => {
+    const film = await getFilmsByTitre(searchFilm);
+    if (film) {
+      navigate(`/seances/${film._id}`);
+    } else {
+      console.log('Film not found');
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    navigate('/login'); 
+    localStorage.removeItem('role');
+    navigate('/login');
   };
 
   return (
@@ -44,7 +55,7 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto mb-2 mb-lg-0">
-          <li className="nav-item">
+            <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">
                 Home
               </Link>
@@ -55,13 +66,19 @@ const Navbar = () => {
               </Link>
             </li>
             {token && (
-            <li className="nav-item">
-              <Link className="nav-link" to="/Reservation">
-                My-Reservation
-              </Link>
-            </li>
+              <li className="nav-item">
+                {role === 'admin' ? (
+                  <Link className="nav-link" to="/DashboardAdmin">
+                    DashboardAdmin
+                  </Link>
+                ) : (
+                  <Link className="nav-link" to="/Reservation">
+                    My-Reservation
+                  </Link>
+                )}
+              </li>
             )}
-           <li className="nav-item d-flex">
+            <li className="nav-item d-flex">
               <input
                 type="text"
                 value={searchFilm}
@@ -69,14 +86,14 @@ const Navbar = () => {
                 placeholder="Search Film..."
                 style={{ marginRight: '10px' }}
               />
-              <button onClick={handleClick} className="btn btn-primary">Search</button>
+              <button onClick={handleClick} className="btn btn-primary">
+                Search
+              </button>
             </li>
-
-            
           </ul>
 
           <ul className="navbar-nav ml-auto">
-            {!token && (
+            {!token ? (
               <>
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">
@@ -89,8 +106,7 @@ const Navbar = () => {
                   </Link>
                 </li>
               </>
-            )}
-            {token && (
+            ) : (
               <li className="nav-item">
                 <button onClick={handleLogout} className="nav-link btn logout-button">
                   Logout

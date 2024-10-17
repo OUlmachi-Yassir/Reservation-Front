@@ -21,11 +21,15 @@ const axiosInstance = axios.create({
   export const fetchFilms = () => axiosInstance.get('/films');
   export const updateFilm = (id, data) => axiosInstance.put(`/films/updateFilm/${id}`, data);
   export const deleteFilm = (id) => axiosInstance.delete(`/films/deleteFilm/${id}`);
-  
+  export const addFilms = (data)=>axiosInstance.post('/films/addfilm',data)
+
+
   export const fetchRooms = () => axiosInstance.get('/rooms');
   export const updateRoom = (id, data) => axiosInstance.put(`/rooms/update/${id}`, data);
   export const deleteRoom = (id) => axiosInstance.delete(`/rooms/delete/${id}`);
+  export const addRooms = (data) => axiosInstance.post('/rooms/add',data);
   
   export const fetchSeances = () => axiosInstance.get('/seance');
   export const updateSeance = (id, data) => axiosInstance.put(`/seance/update/${id}`, data);
   export const deleteSeance = (id) => axiosInstance.delete(`/seance/delete/${id}`);
+  export const addSeance = (data) => axiosInstance.post('/seance/add',data);
