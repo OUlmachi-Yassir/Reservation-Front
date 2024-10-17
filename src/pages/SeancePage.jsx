@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../seancePage.css'
+import Comments from '../components/Comments';
 const SeancePage = () => {
   const { filmId } = useParams();
   const [film, setFilm] = useState(null);
@@ -26,13 +27,14 @@ const SeancePage = () => {
   }, [filmId]);
 
   return (
-    <div className="film-page-wrapper">
+    <div className="film">
       {film ? (
+        <div className='flex flex-column'>
         <div className="film-container">
           <img
             src={`http://localhost:3000/${film.image}`}
             alt={film.title || "Film image"}
-            className="film-poster"
+            className="card w-25"
           />
           <div>
             <div className="film-info">
@@ -56,7 +58,11 @@ const SeancePage = () => {
               <p>No seances available for this film.</p>
             )}
           </div>
-          <video controls width="400" src={film.video}/>
+        </div>
+        <div className='container'>
+          <video controls width="600" src={film.video}/>
+          <Comments filmId={filmId} />
+        </div>
         </div>
       ) : (
         <p>Loading film details...</p>

@@ -33,3 +33,7 @@ const axiosInstance = axios.create({
   export const updateSeance = (id, data) => axiosInstance.put(`/seance/update/${id}`, data);
   export const deleteSeance = (id) => axiosInstance.delete(`/seance/delete/${id}`);
   export const addSeance = (data) => axiosInstance.post('/seance/add',data);
+  
+
+  export const fetchComments = (filmId) => axiosInstance.get(`/comments/${filmId}`);
+  export const addComment = (commentData) => axiosInstance.post('/comments', commentData);
