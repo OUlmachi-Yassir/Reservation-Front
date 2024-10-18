@@ -24,14 +24,13 @@ const SeanceTable = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Êtes-vous sûr de vouloir supprimer cette séance ?')) {
+    
       try {
         await deleteSeance(id);
         loadSeances();
       } catch (err) {
         setError('Erreur lors de la suppression de la séance.');
       }
-    }
   };
 
   if (loading) return <p>Chargement des séances...</p>;
