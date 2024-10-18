@@ -43,3 +43,41 @@ export const fetchAdmins = () => axiosInstance.get('/admins');
 export const addAdmin = (data) => axiosInstance.post('/admins/addAdmin', data);
 export const updateAdmin = (id, data) => axiosInstance.put(`/admins/updateAdmin/${id}`, data);
 export const deleteAdmin = (id) => axiosInstance.delete(`/admins/deleteAdmin/${id}`);
+
+export const fetchUserProfile = () => axiosInstance.get('/auth/profile');
+export const updateUserProfile = (data) => axiosInstance.put('/auth/profile', data);
+
+
+export const addFavorite = async (filmId, userId) => {
+  try {
+    const response = await axiosInstance.post('/favorite/add', { filmId, userId });
+    return response.data;
+  } catch (error) {
+    console.error('Error adding favorite:', error);
+    throw error;
+  }
+};
+
+export const removeFavorite = async (favoriteId) => {
+  try {
+    const response = await axiosInstance.delete(`/favorite/${favoriteId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error removing favorite:', error);
+    throw error;
+  }
+};
+
+export const getFavorites = async (userId) => {
+  try {
+    const response = await axiosInstance.get(`/favorite`, { params: { userId } });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching favorites:', error);
+    throw error;
+  }
+};
+
+
+
+

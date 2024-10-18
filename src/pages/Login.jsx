@@ -32,7 +32,7 @@ const Login = () => {
   
       console.log('Réponse de l\'API :', response.data); 
   
-      const { token, role } = response.data;
+      const { token, role ,_id} = response.data;
   
       if (!token || !role) {
         throw new Error('Token ou rôle manquant dans la réponse');
@@ -40,6 +40,7 @@ const Login = () => {
   
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
+      localStorage.setItem('userId',_id);
   
       console.log('Rôle stocké dans localStorage :', role); 
   

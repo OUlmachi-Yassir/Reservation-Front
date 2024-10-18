@@ -107,11 +107,23 @@ const Navbar = () => {
                 </li>
               </>
             ) : (
+              <div style={{ 
+                    marginLeft: '10px',
+                    display: 'flex',
+                    alignItems: 'center'
+              }}>
               <li className="nav-item">
                 <button onClick={handleLogout} className="nav-link btn logout-button">
                   Logout
                 </button>
               </li>
+              <li className="nav-item">
+              <Link className="nav-link" to="/profile">
+                Myprofile
+              </Link>
+            </li>
+            </div>
+              
             )}
           </ul>
         </div>
