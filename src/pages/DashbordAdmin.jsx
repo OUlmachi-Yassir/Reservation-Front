@@ -6,6 +6,8 @@ import RoomTable from '../components/RoomTable';
 import AddFilmForm from '../components/AddFilmForm'; 
 import AddRoomForm from '../components/AddRoomFotm';
 import AddSeanceForm from '../components/AddSeanceForm';
+import TableAdmin from '../components/AdminTable';
+import AddAdminForm from '../components/AddAdminForm';
 
 const DashboardAdmin = () => {
   const [stats, setStats] = useState({
@@ -19,6 +21,7 @@ const DashboardAdmin = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeForm, setActiveForm] = useState(null); 
+  const [admins, setAdmins] = useState([]); 
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -75,8 +78,12 @@ const DashboardAdmin = () => {
         <button onClick={() => setActiveForm('seance')} className="btn btn-primary">
           Add Séance
         </button>
-      </div>
+        <button onClick={() => setActiveForm('admin')} className="btn btn-primary">
+          Add Admin
+        </button>
 
+      </div>
+      <TableAdmin/>
       <FilmTable />
       <RoomTable />
       <SeanceTable />
@@ -84,6 +91,11 @@ const DashboardAdmin = () => {
       {activeForm === 'film' && <Modal onClose={() => setActiveForm(null)}><AddFilmForm onClose={() => setActiveForm(null)} /></Modal>}
       {activeForm === 'room' && <Modal onClose={() => setActiveForm(null)}><AddRoomForm onClose={() => setActiveForm(null)} /></Modal>}
       {activeForm === 'seance' && <Modal onClose={() => setActiveForm(null)}><AddSeanceForm onClose={() => setActiveForm(null)} /></Modal>}
+      {activeForm === 'admin' && (
+        <Modal onClose={() => setActiveForm(null)}>
+          <AddAdminForm setAdmins={setAdmins} onClose={() => setActiveForm(null)} />
+        </Modal>
+      )} 
     </div>
   );
 };

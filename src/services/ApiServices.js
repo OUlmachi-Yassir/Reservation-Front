@@ -37,3 +37,9 @@ const axiosInstance = axios.create({
 
   export const fetchComments = (filmId) => axiosInstance.get(`/comments/${filmId}`);
   export const addComment = (commentData) => axiosInstance.post('/comments', commentData);
+
+
+export const fetchAdmins = () => axiosInstance.get('/admins');
+export const addAdmin = (data) => axiosInstance.post('/admins/addAdmin', data);
+export const updateAdmin = (id, data) => axiosInstance.put(`/admins/updateAdmin/${id}`, data);
+export const deleteAdmin = (id) => axiosInstance.delete(`/admins/deleteAdmin/${id}`);
