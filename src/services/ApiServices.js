@@ -77,6 +77,25 @@ export const getFavorites = async (userId) => {
     throw error;
   }
 };
+export const addOrUpdateRating = (filmId,userId,ratingValue) => 
+  axiosInstance.post('/rating', { filmId, ratingValue, userId });
+
+export const getFilmRatings = async (filmId) => {
+  try {
+    const response = await axiosInstance.get(`/rating/${filmId}`);
+    const data = response.data;
+
+    return {
+      averageRating: data.averageRating || 0,
+      ratings: data.ratings || [],
+    };
+  } catch (error) {
+    console.error('Failed to fetch film ratings:', error);
+    throw error;
+  }
+};
+
+export const getUserFilmRating = (filmId,userId) => axiosInstance.get(`/rating/${filmId}/${userId}`);
 
 
 

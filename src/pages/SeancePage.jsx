@@ -3,17 +3,18 @@ import { useParams } from 'react-router-dom';
 import '../seancePage.css';
 import Comments from '../components/Comments';
 import Favorite from '../components/Favorite';
+import Rating from '../components/Rating';  
 
 const SeancePage = () => {
   const { filmId } = useParams();
   const [film, setFilm] = useState(null);
   const [seances, setSeances] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // État d'authentification
-  const userId = localStorage.getItem('userId'); // Récupération du userId
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token); 
+    setIsAuthenticated(!!token);
 
     const fetchFilmAndSeances = async () => {
       try {
@@ -40,27 +41,46 @@ const SeancePage = () => {
             <img
               src={`http://localhost:3000/${film.image}`}
               alt={film.title || 'Film image'}
-              className="card w-25"
+              className=""
+              style={{
+                maxHeight: '500px',
+                objectFit: 'cover',
+                borderRadius: '10px',
+                boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
+              }}
             />
             <div>
               <div className="film-info">
-                <h2>{film.title}</h2>
-                <p><strong>Director:</strong> {film.director}</p>
-                <p><strong>Release Year:</strong> {film.releaseYear}</p>
-                <p><strong>Genre:</strong> {film.genre}</p>
+                <h2 style={{ fontSize: '50px', fontFamily: 'Arial, Helvetica, sans-serif, bold' }}>
+                  {film.title}
+                </h2>
+                <p style={{ color: '#FFBF00', fontSize: '20px' }}>
+                  <strong>Director:</strong> {film.director}
+                </p>
+                <p style={{ color: '#FFBF00', fontSize: '20px' }}>
+                  <strong>Release Year:</strong> {film.releaseYear}
+                </p>
+                <p style={{ color: '#FFBF00', fontSize: '20px' }}>
+                  <strong>Genre:</strong> {film.genre}
+                </p>
 
                 {isAuthenticated && userId && (
-                  <Favorite filmId={film._id} userId={userId} />
+                  <>
+                    <Favorite filmId={film._id} userId={userId} />
+                    <Rating filmId={film._id} userId={userId} />  
+                  </>
                 )}
               </div>
 
               {seances.length > 0 ? (
                 <ul className="seance-list">
-                  {seances.map(seance => (
+                  {seances.map((seance) => (
                     <li className="seance-item" key={seance._id}>
                       <p>{new Date(seance.horaire).toLocaleString()}</p>
                       <p>{seance.tarif} DH</p>
-                      <p><strong>Salle:</strong> {seance.room?.name || 'Unknown'}</p>
+                      <p>
+                        <strong>Salle:</strong> {seance.room?.name || 'Unknown'}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -70,7 +90,7 @@ const SeancePage = () => {
             </div>
           </div>
 
-          <div className="container">
+          <div>
             <video controls width="600" src={film.video} />
             <Comments filmId={filmId} />
           </div>
