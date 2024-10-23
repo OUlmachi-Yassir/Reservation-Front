@@ -49,11 +49,26 @@ const SeancePage = () => {
                 boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
               }}
             />
-            <div>
+            <div style={{background:"black", maxWidth:"600px" ,width:"100%", padding:"20px"}}>
               <div className="film-info">
-                <h2 style={{ fontSize: '50px', fontFamily: 'Arial, Helvetica, sans-serif, bold' }}>
+                <div style={{display:"flex"}}>
+                <h2 style={{ fontSize: '50px',
+                 fontFamily: 'Stencil Std, fantasy', 
+                 fontWeight:"9OO" , 
+                 color:"white",
+                 textShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
+                }}>
                   {film.title}
                 </h2>
+                {isAuthenticated && userId && (
+                  <>
+                  <div style={{display:"flex", gap:"20px"}}>
+                    <Favorite filmId={film._id} userId={userId} />
+                    <Rating filmId={film._id} userId={userId} />
+                  </div>  
+                  </>
+                )}
+                </div>
                 <p style={{ color: '#FFBF00', fontSize: '20px' }}>
                   <strong>Director:</strong> {film.director}
                 </p>
@@ -64,12 +79,7 @@ const SeancePage = () => {
                   <strong>Genre:</strong> {film.genre}
                 </p>
 
-                {isAuthenticated && userId && (
-                  <>
-                    <Favorite filmId={film._id} userId={userId} />
-                    <Rating filmId={film._id} userId={userId} />  
-                  </>
-                )}
+                
               </div>
 
               {seances.length > 0 ? (
@@ -88,6 +98,7 @@ const SeancePage = () => {
                 <p>No seances available for this film.</p>
               )}
             </div>
+            <div style={{}}></div>
           </div>
 
           <div>

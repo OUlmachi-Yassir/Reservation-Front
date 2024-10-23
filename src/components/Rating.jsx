@@ -11,30 +11,31 @@ const StyledRating = styled(Rating)(({ theme }) => ({
 }));
 
 export default function FilmRating({ filmId, userId }) {
-  const [ratingValue, setRatingValue] = useState(null); 
-  const [averageRating, setAverageRating] = useState();
-  const [ratings, setRatings] = useState([]);
+  const [ratingValue, setRatingValue] = useState(null); // User's rating
+  const [averageRating, setAverageRating] = useState(); // Average rating
+  const [ratings, setRatings] = useState([]); // All ratings
   const [error, setError] = useState('');
-  console.log('Average Rating:', averageRating); 
+  console.log('Average Rating:', averageRating);
 
   useEffect(() => {
     const fetchRatings = async () => {
-        try {
-          const response = await getFilmRatings(filmId);
-          console.log('Fetched Ratings Response:', response); 
-          const { averageRating, ratings = [] } = response; 
-          setAverageRating(Number(averageRating));
-          setRatings(ratings);
-      
-          const userRating = await getUserFilmRating(filmId, userId);
-          if (userRating) {
-            setRatingValue(userRating.ratingValue);
-          }
-        } catch (error) {
-          console.error('Failed to fetch ratings:', error);
-          setRatings([]); 
+      try {
+        const response = await getFilmRatings(filmId);
+        console.log('Fetched Ratings Response:', response);
+        const { averageRating, ratings = [] } = response;
+        setAverageRating(Number(averageRating));
+        setRatings(ratings);
+
+        // Fetch and set the user’s own rating
+        const userRating = await getUserFilmRating(filmId, userId);
+        if (userRating) {
+          setRatingValue(userRating.ratingValue);
         }
-      };
+      } catch (error) {
+        console.error('Failed to fetch ratings:', error);
+        setRatings([]);
+      }
+    };
     fetchRatings();
   }, [filmId, userId]);
 
@@ -49,7 +50,7 @@ export default function FilmRating({ filmId, userId }) {
       const { averageRating, ratings } = await getFilmRatings(filmId);
       setAverageRating(Number(averageRating));
       setRatings(ratings);
-      setRatingValue(newValue); 
+      setRatingValue(newValue);
     } catch (error) {
       setError('Failed to submit rating. Please try again.');
       console.error(error);
@@ -70,19 +71,13 @@ export default function FilmRating({ filmId, userId }) {
       />
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <h4>Average Rating: {averageRating}</h4>
-      <h4>User Ratings:</h4>
-      <ul>
-        {ratings && ratings.length > 0 ? (
-            console.log({ratings}),
-            ratings.map((rating) => (
-            <p key={rating._id}>{`User ${rating.userId}: ${rating.ratingValue}`}</p>
-            ))
-        ) : (
-            <li>No ratings available</li>
-        )}
-        </ul>
-
+      <h4>My Rating: {ratingValue || 'Not rated yet'}</h4>
+      <h4>Average Rating: {averageRating || 'N/A'}</h4> 
     </div>
   );
 }
+
+FilmRating.propTypes = {
+  filmId: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
+};
