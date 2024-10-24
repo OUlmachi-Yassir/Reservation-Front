@@ -47,11 +47,12 @@ const SeancePage = () => {
                 objectFit: 'cover',
                 borderRadius: '10px',
                 boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
+                zIndex: 100,
               }}
             />
-            <div style={{background:"black", maxWidth:"600px" ,width:"100%", padding:"20px"}}>
+            <div style={{background:" linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,0,0,0.4823179271708683) 100%)", maxWidth:"600px" ,width:"100%", padding:"20px"}}>
               <div className="film-info">
-                <div style={{display:"flex"}}>
+                <div style={{display:"flex", gap:"20px" }}>
                 <h2 style={{ fontSize: '50px',
                  fontFamily: 'Stencil Std, fantasy', 
                  fontWeight:"9OO" , 
@@ -64,7 +65,6 @@ const SeancePage = () => {
                   <>
                   <div style={{display:"flex", gap:"20px"}}>
                     <Favorite filmId={film._id} userId={userId} />
-                    <Rating filmId={film._id} userId={userId} />
                   </div>  
                   </>
                 )}
@@ -78,6 +78,7 @@ const SeancePage = () => {
                 <p style={{ color: '#FFBF00', fontSize: '20px' }}>
                   <strong>Genre:</strong> {film.genre}
                 </p>
+                <Rating filmId={film._id} userId={userId} />
 
                 
               </div>
@@ -101,8 +102,8 @@ const SeancePage = () => {
             <div style={{}}></div>
           </div>
 
-          <div>
-            <video controls width="600" src={film.video} />
+          <div style={{display:"flex",justifyContent:"space-around",flexWrap:"wrap"}}>
+            <video controls  src={film.video} style={{maxWidth:"1000px", width:"60%",maxHeight:"700px", height:"50%"}}/>
             <Comments filmId={filmId} />
           </div>
         </div>

@@ -2,13 +2,11 @@
   
   .film-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    width: fit-content;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
   
   .film-poster {

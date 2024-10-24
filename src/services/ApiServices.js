@@ -95,7 +95,7 @@ export const getFilmRatings = async (filmId) => {
   }
 };
 
-export const getUserFilmRating = (filmId,userId) => axiosInstance.get(`/rating/${filmId}/${userId}`);
+export const getUserFilmRating = async (filmId,userId) => (await axiosInstance.get(`/rating/${filmId}/${userId}`)).data;
 
 
 
