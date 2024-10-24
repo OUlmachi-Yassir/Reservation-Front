@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { fetchComments, addComment } from '../services/ApiServices';
+import '../comments.css'
 
 const Comments = ({ filmId }) => {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   const [currentPage, setCurrentPage] = useState(1); 
-  const commentsPerPage = 5; 
+  const commentsPerPage = 3; 
 
   useEffect(() => {
     const getComments = async () => {
@@ -42,23 +43,22 @@ const Comments = ({ filmId }) => {
 
   return (
     <div className="comments-section">
-      <h3>Comments</h3>
-      <form onSubmit={handleCommentSubmit} className="d-flex flex-column gap-3 p-4 border rounded shadow-sm" style={{maxWidth:" 500px"}}>
+      <form onSubmit={handleCommentSubmit} className="card__form" style={{width:"500px",height:"100px"}}>
         <textarea
-            className="form-control"
+            className=""
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             placeholder="Write a comment..."
             required
             rows="4"
-            style={{resize: "none"}}
+            style={{resize: "none",borderRadius:"20px",overflow:"hidden"}}
         ></textarea>
 
-        <button type="submit" className="btn btn-primary align-self-end">
-            Add Comment
+        <button type="submit" class="card__button" >
+          Add Comment
         </button>
-        </form>
 
+        </form>
 
       <ul className="comments-list">
         {currentComments.map((comment) => (
@@ -77,18 +77,11 @@ const Comments = ({ filmId }) => {
                 </p>
               </div>
             </div>
-            <div 
-              style={{
-                background: 'grey',
-                padding: '0px 20px',
-                borderRadius: '50px',
-                margin: '20px'
-              }}
-            >
-              <p style={{ color: 'white', fontFamily: 'arial' }}>
-                {comment.text}
-              </p>
-            </div>
+            <div class="card">
+            <p class="card__title">
+            {comment.text}
+            </p>  
+          </div>
           </div>
         ))}
       </ul>

@@ -8,13 +8,13 @@ import { getFilmRatings, addOrUpdateRating, getUserFilmRating } from '../service
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-icon': {
-    fontSize: 30, 
+    fontSize: 25,
   },
   '& .MuiRating-iconFilled': {
-    color: '#ffd700', 
+    color: '#ffd700',
   },
   '& .MuiRating-iconEmpty': {
-    color: 'white', 
+    color: 'white',
   },
 }));
 
@@ -36,10 +36,11 @@ function getLabelText(value) {
 }
 
 export default function FilmRating({ filmId, userId }) {
-  const [ratingValue, setRatingValue] = useState(-1);
+  const [ratingValue, setRatingValue] = useState(null);
   const [averageRating, setAverageRating] = useState();
   const [hover, setHover] = useState(-1);
   const [error, setError] = useState('');
+  const [hasRated, setHasRated] = useState(false); 
 
   useEffect(() => {
     const fetchRatings = async () => {
@@ -49,10 +50,9 @@ export default function FilmRating({ filmId, userId }) {
         setAverageRating(Number(averageRating));
 
         const userRes = await getUserFilmRating(filmId, userId);
-        const userRating = userRes;
-        console.log(userRating)
-        if (userRating) {
-          setRatingValue(userRating.ratingValue);
+        if (userRes) {
+          setRatingValue(userRes.ratingValue);
+          setHasRated(true);
         }
       } catch (error) {
         console.error('Failed to fetch ratings:', error);
@@ -69,10 +69,9 @@ export default function FilmRating({ filmId, userId }) {
     try {
       await addOrUpdateRating(filmId, userId, newValue);
       setRatingValue(newValue);
+      setHasRated(true);
       const { averageRating } = await getFilmRatings(filmId);
       setAverageRating(Number(averageRating));
-      console.log(ratingValue)
-
       setError('');
     } catch (error) {
       setError('Failed to submit rating. Please try again.');
@@ -82,7 +81,7 @@ export default function FilmRating({ filmId, userId }) {
 
   return (
     <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <h3>Rate this film:</h3>
+      <h6 style={{color:"white"}}>{hasRated ? 'Update your rating:' : 'Rate this film:'}</h6>
       <StyledRating
         name="user-rating"
         value={ratingValue}
@@ -98,16 +97,15 @@ export default function FilmRating({ filmId, userId }) {
         emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
       />
       {hover !== -1 && <Box sx={{ color: 'white', mt: 1 }}>{labels[hover]}</Box>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <h4>My Rating: {ratingValue || 'Not rated yet'}</h4>
-      <Rating
+      {error && <p style={{ color: 'red' }}>{error}</p>}      
+      <h6 style={{color:"white"}}>Average Rating : <strong style={{ color:"white", fontSize:"30px"}}>{averageRating || 'N/A'}</strong> 
+        <Rating
         name="average-rating"
         value={averageRating || 0}
         precision={0.5}
         readOnly
-        size="large"
-      />
-      <h4>Average Rating: {averageRating || 'N/A'}</h4>
+        size="small"
+      /></h6>
     </Box>
   );
 }

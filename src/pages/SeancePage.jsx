@@ -36,8 +36,8 @@ const SeancePage = () => {
   return (
     <div className="film">
       {film ? (
-        <div className="flex flex-column">
-          <div className="film-container">
+        <div className="flex">
+          <div className="film-container" style={{background:"linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(163,0,0,0.1) 100%)"}}>
             <img
               src={`http://localhost:3000/${film.image}`}
               alt={film.title || 'Film image'}
@@ -46,11 +46,14 @@ const SeancePage = () => {
                 maxHeight: '500px',
                 objectFit: 'cover',
                 borderRadius: '10px',
-                boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
+                boxShadow: '0 0 10px rgba(255, 255, 255, 0.3)',
                 zIndex: 100,
               }}
             />
-            <div style={{background:" linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,0,0,0.4823179271708683) 100%)", maxWidth:"600px" ,width:"100%", padding:"20px"}}>
+            <div style={{background:" linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,0,0,0.4823179271708683) 100%)", maxWidth:"600px" ,width:"100%", padding:"20px",
+              clipPath:"polygon(0% 0, 55% 0, 100% 50%, 100% 100%, 0% 100%)",
+              borderRadius:"10px 0px 50px 10px",
+            }}>
               <div className="film-info">
                 <div style={{display:"flex", gap:"20px" }}>
                 <h2 style={{ fontSize: '50px',
@@ -102,8 +105,8 @@ const SeancePage = () => {
             <div style={{}}></div>
           </div>
 
-          <div style={{display:"flex",justifyContent:"space-around",flexWrap:"wrap"}}>
-            <video controls  src={film.video} style={{maxWidth:"1000px", width:"60%",maxHeight:"700px", height:"50%"}}/>
+          <div style={{display:"flex",justifyContent:"space-between",flexWrap:"wrap", background:"linear-gradient(180deg, rgba(0,0,0,1) 30%, rgba(163,0,0,0.05) 100%)" ,padding:"10px",alignItems:"center"}}>
+            <video controls  src={film.video} style={{maxWidth:"1000px", width:"60%",maxHeight:"700px", height:"80%",marginLeft:"20px"}}/>
             <Comments filmId={filmId} />
           </div>
         </div>
