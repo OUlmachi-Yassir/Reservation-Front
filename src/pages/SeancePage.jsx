@@ -91,7 +91,7 @@ const SeancePage = () => {
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px', alignItems: 'center', background: "linear-gradient(180deg, rgba(0,0,0,1) 30%, rgba(163,0,0,0.05) 100%)" }}>
+          <div style={{ display: 'flex',flexWrap:"wrap", justifyContent: 'space-between', padding: '10px', alignItems: 'center', background: "linear-gradient(180deg, rgba(0,0,0,1) 30%, rgba(163,0,0,0.05) 100%)" }}>
             <div style={{ position: 'relative', width: '60%', maxWidth: '1000px', marginLeft: '20px' }}>
               {!showVideo && (
                 <Box

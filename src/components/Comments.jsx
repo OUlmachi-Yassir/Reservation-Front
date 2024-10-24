@@ -54,7 +54,7 @@ const Comments = ({ filmId }) => {
             style={{resize: "none",borderRadius:"20px",overflow:"hidden"}}
         ></textarea>
 
-        <button type="submit" class="card__button" >
+        <button type="submit" className="card__button" >
           Add Comment
         </button>
 
@@ -77,8 +77,8 @@ const Comments = ({ filmId }) => {
                 </p>
               </div>
             </div>
-            <div class="card">
-            <p class="card__title">
+            <div className="card">
+            <p className="card__title">
             {comment.text}
             </p>  
           </div>

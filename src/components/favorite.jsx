@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { addFavorite, removeFavorite, getFavorites } from '../services/ApiServices'; // Import your API functions
+import { addFavorite, removeFavorite, getFavorites } from '../services/ApiServices'; 
 
 const Favorite = ({ filmId, userId }) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteId, setFavoriteId] = useState(null);
 
   const toggleFavorite = async () => {
     try {
       if (isFavorite) {
-        await removeFavorite(userId, filmId);
+        console.log(`Removing favorite with ID: ${favoriteId}`);
+        await removeFavorite(favoriteId);
+        setFavoriteId(null);
+        setIsFavorite(false); 
       } else {
-        await addFavorite({ userId, filmId });
+        const newFavorite = await addFavorite({ userId, filmId });
+        console.log(`Added favorite:`, newFavorite.favorite._id);
+        setFavoriteId(newFavorite.favorite._id);
+        setIsFavorite(true);
       }
-      setIsFavorite(!isFavorite); 
     } catch (error) {
       console.error('Error toggling favorite:', error);
     }
@@ -21,17 +27,25 @@ const Favorite = ({ filmId, userId }) => {
     const fetchFavorites = async () => {
       try {
         const { data } = await getFavorites(userId);
-        const isFav = data.favorites.some((fav) => fav.film._id === filmId);
-        setIsFavorite(isFav);
+        const favorite = data.favorites.find((fav) => fav.film._id === filmId);
+        
+        if (favorite) {
+          setIsFavorite(true);
+          setFavoriteId(favorite._id);
+        } else {
+          setIsFavorite(false);
+          setFavoriteId(null);
+        }
       } catch (error) {
         console.error('Error fetching favorites:', error);
       }
     };
+
     fetchFavorites();
   }, [filmId, userId]);
 
   return (
-    <div onClick={toggleFavorite} style={{ cursor: 'pointer', width: '24px', height: '24px' ,color:'white' }}>
+    <div onClick={toggleFavorite} style={{ cursor: 'pointer', width: '24px', height: '24px', color: 'white' }}>
       <svg
         viewBox="0 0 24 24"
         fill={isFavorite ? 'red' : 'none'}
