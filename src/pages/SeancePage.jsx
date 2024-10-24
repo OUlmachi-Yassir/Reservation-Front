@@ -60,7 +60,10 @@ const SeancePage = () => {
                 boxShadow: '0 0 10px rgba(255, 255, 255, 0.3)',
               }}
             />
-            <div style={{ background: "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,0,0,0.482) 100%)", maxWidth: "600px", padding: "20px", borderRadius: "10px 0px 50px 10px" }}>
+            <div style={{background:" linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,0,0,0.4823179271708683) 100%)", maxWidth:"600px" ,width:"100%", padding:"20px",
+              clipPath:"polygon(0% 0, 55% 0, 100% 50%, 100% 100%, 0% 100%)",
+              borderRadius:"10px 0px 50px 10px",
+            }}>
               <div className="film-info">
                 <h2 style={{ fontSize: '50px', fontFamily: 'Stencil Std, fantasy', fontWeight: '900', color: 'white', textShadow: '0 0 10px rgba(255, 255, 255, 0.8)' }}>
                   {film.title}
